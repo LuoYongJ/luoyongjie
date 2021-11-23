@@ -126,4 +126,52 @@ $(function() {
         }, 300)
     })
 
+    /*二维码滑出*/
+    $('.qr-code .ticket').hover(function() {
+        //二维码滑出
+        $('.qr-code div').stop(true).animate({
+            left: '-100px'
+        })
+
+    }, function() {
+        //二维码收回
+        $('.qr-code div').stop(true).animate({
+            left: 0
+        })
+    })
+
+    /*顶部搜索框交互*/
+    $(document).scroll(function() {
+        // 获取顶部的距离
+        var topDistance = $('html, body').scrollTop();
+        //判断
+        if (topDistance > 500) {
+            //如果滚动距离大于500就显示
+            $('.top-search-box').slideDown()
+        } else {
+            $('.top-search-box').slideUp()
+        }
+    })
+
+    /*楼梯跳转*/
+    $('.floor li').click(function() {
+        //获取索引
+        var index = $(this).index();
+        //选中每一个板块到顶部的偏移
+        var topoffset = $('.floorbox').eq(index).offset().top;
+
+        //让滚动条滚到这个位置
+        $('html, body').animate({
+            scrollTop: topoffset - 50
+        })
+
+
+
+
+
+    })
+
+
+
+
 })

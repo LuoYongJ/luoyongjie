@@ -1455,3 +1455,100 @@
     height: 100%;
     width: 100%;
 }
+
+
+/*****************二维码效果 ******************/
+
+.qr-code {
+    width: 40px;
+    height: 180px;
+    /*定位*/
+    position: fixed;
+    top: 185px;
+    right: 0;
+}
+
+.qr-code p {
+    width: 40px;
+    height: 40px;
+}
+
+.qr-code p img {
+    width: 100%;
+    height: 100%;
+}
+
+.qr-code p:nth-child(2) {
+    height: 100px;
+}
+
+.qr-code div {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: -10;
+}
+
+
+/*****************二维码效果 ******************/
+
+.top-search-box {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: rgb(255, 123, 0, .8);
+    /*定位*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*默认隐藏*/
+    display: none;
+}
+
+.top-search-box .search-box {
+    width: 400px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #ff6700;
+    margin: 10px auto;
+    background: url('../img/bgicon.png');
+    background-repeat: no-repeat;
+    background-position: 356px -2px;
+}
+
+.top-search-box .search-box input {
+    height: 26px;
+    width: 360px;
+    border: 1px solid #ff6700;
+    outline: none;
+    text-indent: 10px;
+}
+
+.floor {
+    width: 40px;
+    height: 200px;
+    background-color: #f2f2f2;
+    position: fixed;
+    top: 200px;
+    margin-left: 50%;
+    left: -640px;
+}
+
+.floor ul li {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    /*设置过渡效果*/
+    transition: all 0.3s;
+}
+
+.floor li:hover {
+    width: 80px;
+    color: #fff;
+    background-color: #93d56f;
+}
+
+.floor ul li img {
+    width: 40px;
+    height: 40px;
+}

@@ -17,6 +17,10 @@ $(function() {
         $bodyinput.prop('checked', state);
         $allpriceinput.prop('checked', state);
 
+
+
+        //调用计算总价函数
+        calctotalprice();
     })
 
     //结算中的选择框也应该保持一致
@@ -28,6 +32,9 @@ $(function() {
         //上面的全选和结算中的选择框也应该一致
         $bodyinput.prop('checked', state);
         $theadinput.prop('checked', state);
+
+        //调用计算总价函数
+        calctotalprice();
     })
 
     //表单中的选中状态 反过来影响全选
@@ -35,15 +42,11 @@ $(function() {
 
         //定义一个标杆
         var flag = true;
-        //总价
-        var totalprice = 0;
 
         //循环表格选择框的选中状态
         $bodyinput.each(function(i, input) {
             if (!$(input).prop('checked')) { //只要有一个选择框没有选中那就是false
                 flag = false;
-            } else {
-                totalprice += parseFloat($(this).closest('tr').find('.subprice').text());
             }
         })
 
@@ -51,9 +54,8 @@ $(function() {
         $theadinput.prop('checked', flag)
         $allpriceinput.prop('checked', flag)
 
-        //渲染到总价对应的位置
-        $('.total').text(totalprice.toFixed(2))
-
+        //调用计算总价函数
+        calctotalprice();
     })
 
     //数量的加减
@@ -69,10 +71,10 @@ $(function() {
 
 
         //小计
-        var subtotal = oldval * parseFloat($(this).closest('tr').find('.price').text());
+        subtotalprice(oldval, $(this));
 
-        //把小计放入对应的dom里面
-        $(this).closest('tr').find('.subprice').text(subtotal.toFixed(2));
+        //调用计算总价函数
+        calctotalprice();
     })
 
     $('.reduce').on('click', function() {
@@ -89,6 +91,9 @@ $(function() {
 
         //小计
         subtotalprice(oldval, $(this));
+
+        //调用计算总价函数
+        calctotalprice();
     })
 
     //抽取一个小计的函数
@@ -104,12 +109,53 @@ $(function() {
     $('.del').click(function() {
         //删除整行
         $(this).closest('tr').remove();
+        calcgoodscount()
     })
 
     //计算总价的函数
+    function calctotalprice() {
+        //定义一个数量
+        var count = 0;
+        //定义变量保持总价格
+        var totalprice = 0;
+        //循环表格中的所有选择框 如果是选中状态 那么计算总价
+        $('table tbody input[type=checkbox]').each(function(i, input) {
+            if ($(input).prop('checked')) {
+                //自增
+                count++;
+                //累加价格
+                totalprice += parseFloat($(input).closest('tr').find('.subprice').text())
+            }
+        })
 
 
+        //把总价渲染到对应的位置
+        $('.total').text(totalprice.toFixed(2));
+
+        //把数量放到对应的dom位置
+        $('.count').text(count)
+    }
+
+    //全部商品
+    function calcgoodscount() {
+        $('.goodscount').text($('table tbody tr').length)
+    }
+    calcgoodscount(); //一进入页面就调用一次
 
 
+    //删除选中商品
+    $('.deletechecked').on('click', function() {
+        //循环单选框 如果选中就删除掉一行
+        $bodyinput.each(function(i, input) {
+            if ($(this).prop('checked')) {
+                $(this).closest('tr').remove();
+            }
+        })
 
+
+        //计算总价
+        calctotalprice();
+        //计算数量
+        calcgoodscount();
+    })
 })

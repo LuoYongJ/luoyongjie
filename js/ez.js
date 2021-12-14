@@ -25,4 +25,40 @@ $(function() {
         //显示对应内容
         $('.ez-banner').eq(index).show().siblings().hide();
     })
+
+
+    //定义一个索引
+    var index = 0;
+    /*换一批*/
+    /*$('.change').click(function() {
+        //自增
+        index++;
+        //边界判断
+        index = index > 2 ? 0 : index;
+        //让里面的inner-box运动
+        $('.inner-box').animate({
+            top: -index * 500
+        })
+    })
+*/
+
+    /*左右滑动版本*/
+    //定义一个索引
+    var index = 0;
+    /*换一批*/
+    $('.change').click(function() {
+        //自增
+        index++;
+        //边界判断
+        index = index > 3 ? 0 : index;
+        //让里面的inner-box运动
+        $('.inner-box').stop(true).animate({
+            left: -index * 1200
+        }, function() {
+            if (index === 3) {
+                index = 0;
+                $('.inner-box').css('left', 0);
+            }
+        })
+    })
 })
